@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerFormController">
+<AnchorPane fx:id="txtCustimerContactNo" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerFormController">
    <children>
       <Label layoutX="21.0" layoutY="19.0" text="Customer ID" textFill="#1232d3">
          <font>
@@ -26,34 +26,34 @@
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <TextField cacheShape="false" disable="true" editable="false" layoutX="92.0" layoutY="14.0" prefHeight="25.0" prefWidth="76.0" />
-      <TextField layoutX="276.0" layoutY="14.0" prefHeight="25.0" prefWidth="110.0" />
+      <TextField fx:id="txtCustomerID" cacheShape="false" disable="true" editable="false" layoutX="92.0" layoutY="14.0" prefHeight="25.0" prefWidth="76.0" />
+      <TextField fx:id="txtCustomerName" layoutX="276.0" layoutY="14.0" prefHeight="25.0" prefWidth="110.0" />
       <TextField layoutX="462.0" layoutY="14.0" prefHeight="25.0" prefWidth="121.0" />
-      <Button layoutX="334.0" layoutY="65.0" mnemonicParsing="false" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Search" textFill="WHITE">
+      <Button layoutX="334.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerSearch" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Search" textFill="WHITE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="397.0" layoutY="65.0" mnemonicParsing="false" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Add" textFill="WHITE">
+      <Button layoutX="397.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerAdd" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Add" textFill="WHITE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="451.0" layoutY="65.0" mnemonicParsing="false" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Update" textFill="WHITE">
+      <Button layoutX="451.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerUpdate" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Update" textFill="WHITE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="520.0" layoutY="65.0" mnemonicParsing="false" style="-fx-background-color: #A51416; -fx-background-radius: 0;" text="Delete" textFill="WHITE">
+      <Button layoutX="520.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerDelete" style="-fx-background-color: #A51416; -fx-background-radius: 0;" text="Delete" textFill="WHITE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <TableView layoutX="51.0" layoutY="126.0" prefHeight="234.0" prefWidth="494.0" stylesheets="@../css/style.css">
+      <TableView fx:id="tblCustomers" layoutX="51.0" layoutY="126.0" prefHeight="234.0" prefWidth="494.0" stylesheets="@../css/style.css">
         <columns>
-          <TableColumn prefWidth="119.0" text="Customer ID" />
-          <TableColumn prefWidth="184.0" text="Customer Name" />
-            <TableColumn prefWidth="190.0" text="Contact No" />
+          <TableColumn fx:id="colCustomerID" prefWidth="119.0" text="Customer ID" />
+          <TableColumn fx:id="colCustomerName" prefWidth="184.0" text="Customer Name" />
+            <TableColumn fx:id="colCustomerContactNo" prefWidth="190.0" text="Contact No" />
         </columns>
       </TableView>
    </children>
