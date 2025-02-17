@@ -52,3 +52,7 @@
     -fx-cursor: hand;
     -fx-text-fill: red;
 }
+
+.background-color-sk{
+    -fx-background-color:linear-gradient(to bottom, #C56B82, #253494);
+}

@@ -40,7 +40,8 @@ public class CustomerFormController {
 
     @FXML
     void btnCustomerAdd(ActionEvent event) {
-        loadTable();
+
+//        loadTable();
     }
 
     @FXML
@@ -65,7 +66,6 @@ public class CustomerFormController {
         ArrayList<Customer> customerArrayList = new ArrayList<>();
         ObservableList<Customer> customerObservableList = FXCollections.observableArrayList();
 
-
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement statement = connection.createStatement();
@@ -89,5 +89,7 @@ public class CustomerFormController {
 
         tblCustomers.setItems(customerObservableList);
     }
+
+
 
 }
