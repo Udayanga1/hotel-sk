@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="txtCustimerContactNo" prefHeight="457.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerFormController">
+<AnchorPane prefHeight="457.0" prefWidth="566.0" style="-fx-background-color: #C8C8C8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerFormController">
    <children>
       <Label layoutX="21.0" layoutY="19.0" text="Customer ID" textFill="#1232d3">
          <font>
@@ -27,23 +27,23 @@
       </Label>
       <TextField fx:id="txtCustomerID" cacheShape="false" disable="true" editable="false" layoutX="92.0" layoutY="14.0" prefHeight="25.0" prefWidth="76.0" />
       <TextField fx:id="txtCustomerName" layoutX="273.0" layoutY="14.0" prefHeight="25.0" prefWidth="104.0" />
-      <TextField layoutX="457.0" layoutY="14.0" prefHeight="25.0" prefWidth="104.0" />
-      <Button layoutX="334.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerSearch" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Search" textFill="WHITE">
+      <TextField fx:id="txtContactNo" layoutX="457.0" layoutY="14.0" prefHeight="25.0" prefWidth="97.0" />
+      <Button layoutX="322.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerSearch" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Search" textFill="WHITE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="397.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerAdd" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Add" textFill="WHITE">
+      <Button layoutX="385.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerAdd" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Add" textFill="WHITE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="451.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerUpdate" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Update" textFill="WHITE">
+      <Button layoutX="439.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerUpdate" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Update" textFill="WHITE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="520.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerDelete" style="-fx-background-color: #A51416; -fx-background-radius: 0;" text="Delete" textFill="WHITE">
+      <Button layoutX="508.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCustomerDelete" style="-fx-background-color: #A51416; -fx-background-radius: 0;" text="Delete" textFill="WHITE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
