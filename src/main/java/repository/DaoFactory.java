@@ -1,6 +1,7 @@
 package repository;
 
 import repository.custom.impl.CustomerDaoImpl;
+import repository.custom.impl.UserDaoImpl;
 import util.DaoType;
 
 public class DaoFactory {
@@ -13,6 +14,7 @@ public class DaoFactory {
     public <T extends SuperDao> T getDaoType(DaoType type){
         switch (type){
             case CUSTOMER: return (T) new CustomerDaoImpl();
+            case USER: return (T) new UserDaoImpl();
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package service;
 
 import service.custom.impl.CustomerBoImpl;
+import service.custom.impl.UserBoImpl;
 import util.BoType;
 
 public class BoFactory {
@@ -13,6 +14,7 @@ public class BoFactory {
 
         switch (type){
             case CUSTOMER: return (T) new CustomerBoImpl();
+            case USER: return (T) new UserBoImpl();
         }
         return null;
 

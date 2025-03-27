@@ -9,9 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Customer;
 import model.User;
 
 import javafx.scene.input.MouseEvent;
+import service.BoFactory;
+import service.custom.CustomerBo;
+import service.custom.UserBo;
+import util.BoType;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,40 +38,86 @@ public class RegisterFormController {
     @FXML
     private TextField txtUserName;
 
+    UserBo userBo = BoFactory.getInstance().getBoType(BoType.USER);
+
     @FXML
-    void btnRegisterOnAction(ActionEvent event) throws SQLException {
-        String SQL = "INSERT INTO users (username, email, password) VALUES (?,?,?)";
+    void btnRegisterOnAction(ActionEvent event) {
 
-        if(txtPassword.getText().equals(txtConfirmPassword.getText())){
+        String userName = txtUserName.getText().trim();
+        String email = txtEmail.getText().trim();
+        String password = txtPassword.getText().trim();
+        String confirmPassword = txtConfirmPassword.getText().trim();
 
-            Connection connection = DBConnection.getInstance().getConnection();
+        if (userName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "All fields are required!").show();
+            return;
+        }
 
-            ResultSet resultSet = connection.createStatement().executeQuery("SELECT email FROM users WHERE email="+ "'"+ txtEmail.getText() +"'");
+        if (!password.equals(confirmPassword)) {
+            new Alert(Alert.AlertType.ERROR, "Passwords do not match!").show();
+            return;
+        }
 
-            if (!resultSet.next()){
-                User user = new User(txtUserName.getText(), txtEmail.getText(), txtPassword.getText());
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid email format!").show();
+            return;
+        }
 
-                PreparedStatement psTm = connection.prepareStatement(SQL);
-                psTm.setString(1, user.getUserName());
-                psTm.setString(2, user.getEmail());
-                psTm.setString(3, user.getPassword());
-                psTm.executeUpdate();
+        try {
+            boolean isUserAdded = userBo.addUser(new User(userName, email, password));
 
-                txtUserName.setText("");
-                txtEmail.setText("");
-                txtPassword.setText("");
-                txtConfirmPassword.setText("");
+            if (isUserAdded) {
+                new Alert(Alert.AlertType.INFORMATION, "User Registered Successfully!").show();
 
-                new Alert(Alert.AlertType.CONFIRMATION, "User has been registered").show();
+                // Redirect to Login Form
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.close();
+
+                Stage loginStage = new Stage();
+                loginStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/login_form.fxml"))));
+                loginStage.show();
 
             } else {
-                new Alert(Alert.AlertType.ERROR, "A user has already been registered with this email").show();
+                new Alert(Alert.AlertType.ERROR, "User registration failed! Email might already be taken.").show();
             }
 
-
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Check your password").show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred!").show();
+            e.printStackTrace();
         }
+
+//        String SQL = "INSERT INTO users (username, email, password) VALUES (?,?,?)";
+//
+//        if(txtPassword.getText().equals(txtConfirmPassword.getText())){
+//
+//            Connection connection = DBConnection.getInstance().getConnection();
+//
+//            ResultSet resultSet = connection.createStatement().executeQuery("SELECT email FROM users WHERE email="+ "'"+ txtEmail.getText() +"'");
+//
+//            if (!resultSet.next()){
+//                User user = new User(txtUserName.getText(), txtEmail.getText(), txtPassword.getText());
+//
+//                PreparedStatement psTm = connection.prepareStatement(SQL);
+//                psTm.setString(1, user.getUserName());
+//                psTm.setString(2, user.getEmail());
+//                psTm.setString(3, user.getPassword());
+//                psTm.executeUpdate();
+//
+//                txtUserName.setText("");
+//                txtEmail.setText("");
+//                txtPassword.setText("");
+//                txtConfirmPassword.setText("");
+//
+//                new Alert(Alert.AlertType.CONFIRMATION, "User has been registered").show();
+//
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "A user has already been registered with this email").show();
+//            }
+//
+//
+//        } else {
+//            new Alert(Alert.AlertType.ERROR, "Check your password").show();
+//        }
 
     }
 
