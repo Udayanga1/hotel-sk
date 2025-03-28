@@ -14,14 +14,6 @@ public class UserBoImpl implements UserBo {
 
     UserDao userDao = DaoFactory.getInstance().getDaoType(DaoType.USER);
 
-
-//    @Override
-//    public boolean add(User user) {
-//        System.out.println("user in UserBoImpl: " + user);
-//
-//        return  userDao.save(user) ;
-//    }
-
     @Override
     public boolean addUser(User user) {
         System.out.println("UserBoImpl: " + user);

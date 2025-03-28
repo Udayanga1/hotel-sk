@@ -27,10 +27,10 @@
                </font>
             </Text>
          </children></AnchorPane>
-      <Button fx:id="btnColRoomMgtBtn" layoutX="23.0" layoutY="87.0" mnemonicParsing="false" onAction="#btnRoomMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Room Management" textFill="#ececec" />
-      <Button fx:id="btnColResMgtBtn" layoutX="23.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnReservationMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Reservation Management" textFill="#ececec" />
-      <Button fx:id="btnColCheckInOutMgtBtn" layoutX="23.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnCheckInCheckOutOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Check-in and Check-out" textFill="#ececec" />
-      <Button fx:id="btnColRCustomerMgtBtn" layoutX="23.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnCustomerMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Customer Management" textFill="#ececec" />
-      <Button fx:id="btnColBillingtBtn" layoutX="23.0" layoutY="390.0" mnemonicParsing="false" onAction="#btnBillingOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Billing" textFill="#ececec" />
+      <Button fx:id="btnLoadRoomMgt" layoutX="23.0" layoutY="87.0" mnemonicParsing="false" onAction="#btnRoomMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Room Management" textFill="#ececec" />
+      <Button fx:id="btnLoadReservationMgt" layoutX="23.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnReservationMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Reservation Management" textFill="#ececec" />
+      <Button fx:id="btnLoadCheckInOutMgt" layoutX="23.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnCheckInCheckOutOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Check-in and Check-out" textFill="#ececec" />
+      <Button fx:id="btnLoadRCustomerMgt" layoutX="23.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnCustomerMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Customer Management" textFill="#ececec" />
+      <Button fx:id="btnLoadBillingt" layoutX="23.0" layoutY="390.0" mnemonicParsing="false" onAction="#btnBillingOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Billing" textFill="#ececec" />
     </children>
 </AnchorPane>

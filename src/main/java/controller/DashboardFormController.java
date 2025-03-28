@@ -13,19 +13,19 @@ import java.net.URL;
 public class DashboardFormController {
 
     @FXML
-    private Button btnColBillingtBtn;
+    private Button btnLoadBillingt;
 
     @FXML
-    private Button btnColCheckInOutMgtBtn;
+    private Button btnLoadCheckInOutMgt;
 
     @FXML
-    private Button btnColRCustomerMgtBtn;
+    private Button btnLoadRCustomerMgt;
 
     @FXML
-    private Button btnColResMgtBtn;
+    private Button btnLoadReservationMgt;
 
     @FXML
-    private Button btnColRoomMgtBtn;
+    private Button btnLoadRoomMgt;
 
     @FXML
     private AnchorPane loadFormContent;
@@ -51,26 +51,35 @@ public class DashboardFormController {
         loadFormContent.getChildren().clear();
         loadFormContent.getChildren().add(load);
 
-        setBtnBackgroundCol(btnColRCustomerMgtBtn);
+        setBtnBackgroundCol(btnLoadRCustomerMgt);
     }
 
     @FXML
-    void btnReservationMgtOnAction(ActionEvent event) {
+    void btnReservationMgtOnAction(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void btnRoomMgtOnAction(ActionEvent event) {
+    void btnRoomMgtOnAction(ActionEvent event) throws IOException {
+        URL resource = this.getClass().getResource("/view/room_form.fxml");
 
+        assert resource !=null;
+
+        Parent load = FXMLLoader.load(resource);
+
+        loadFormContent.getChildren().clear();
+        loadFormContent.getChildren().add(load);
+
+        setBtnBackgroundCol(btnLoadRoomMgt);
     }
 
     private void setBtnBackgroundCol(Button button){
 
-        btnColBillingtBtn.setStyle("-fx-background-color: #C56B82;");
-        btnColCheckInOutMgtBtn.setStyle("-fx-background-color: #C56B82;");
-        btnColRCustomerMgtBtn.setStyle("-fx-background-color: #C56B82;");
-        btnColResMgtBtn.setStyle("-fx-background-color: #C56B82;");
-        btnColRoomMgtBtn.setStyle("-fx-background-color: #C56B82;");
+        btnLoadBillingt.setStyle("-fx-background-color: #C56B82;");
+        btnLoadCheckInOutMgt.setStyle("-fx-background-color: #C56B82;");
+        btnLoadRCustomerMgt.setStyle("-fx-background-color: #C56B82;");
+        btnLoadReservationMgt.setStyle("-fx-background-color: #C56B82;");
+        btnLoadRoomMgt.setStyle("-fx-background-color: #C56B82;");
 
         button.setStyle("-fx-background-color: #253494;");
     }

@@ -1,7 +1,6 @@
 package repository.custom.impl;
 
 import db.DBConnection;
-import model.Customer;
 import model.User;
 import repository.custom.UserDao;
 
@@ -33,7 +32,7 @@ public class UserDaoImpl implements UserDao {
 //    }
 
     @Override
-    public boolean update(String s, User entity) {
+    public boolean update(User entity) {
         return false;
     }
 

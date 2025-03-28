@@ -10,5 +10,5 @@ public interface CustomerBo extends SuperService {
     boolean updateCustomer(Customer customer);
     Customer searchCustomer(Customer customer);
     List<Customer> getAll();
-    boolean deleteCustomer(String id);
+    boolean deleteCustomer(Customer customer);
 }

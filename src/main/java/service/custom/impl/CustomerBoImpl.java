@@ -19,7 +19,7 @@ public class CustomerBoImpl implements CustomerBo {
 
     @Override
     public boolean updateCustomer(Customer customer) {
-        return false;
+        return customerDao.update(customer);
     }
 
     @Override
@@ -33,9 +33,7 @@ public class CustomerBoImpl implements CustomerBo {
     }
 
     @Override
-    public boolean deleteCustomer(String id) {
-        return false;
+    public boolean deleteCustomer(Customer customer) {
+        return customerDao.delete(customer.getId());
     }
-
-
 }

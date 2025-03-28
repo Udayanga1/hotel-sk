@@ -55,5 +55,10 @@
             <TableColumn fx:id="colCustomerContactNo" prefWidth="190.0" text="Contact No" />
         </columns>
       </TableView>
+      <Button layoutX="254.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnClear" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

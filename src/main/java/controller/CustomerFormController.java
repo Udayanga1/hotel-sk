@@ -46,17 +46,41 @@ public class CustomerFormController {
 
     @FXML
     void btnCustomerAdd(ActionEvent event) {
-        boolean isCustomerAdd = customerBo.addCustomer(
+        if (txtCustomerID.getText().length()>0){
+            new Alert(Alert.AlertType.ERROR, "Please clear the fields before adding a new customer").show();
+        } else {
+            boolean isCustomerAdd = customerBo.addCustomer(
+                    new Customer(
+                            null,
+                            txtCustomerName.getText(),
+                            txtContactNo.getText()
+                    )
+            );
+            if (isCustomerAdd) {
+                new Alert(Alert.AlertType.INFORMATION, "Customer Added!!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Customer Not Added!!").show();
+
+            }
+
+            loadTable();
+        }
+
+    }
+
+    @FXML
+    void btnCustomerDelete(ActionEvent event) {
+        boolean isCustomerDeleted = customerBo.deleteCustomer(
                 new Customer(
-                        txtCustomerID.getText(),
+                        Integer.parseInt(txtCustomerID.getText()),
                         txtCustomerName.getText(),
                         txtContactNo.getText()
                 )
         );
-        if (isCustomerAdd) {
-            new Alert(Alert.AlertType.INFORMATION, "Customer Added!!").show();
+        if (isCustomerDeleted) {
+            new Alert(Alert.AlertType.INFORMATION, "Customer Deleted!!").show();
         } else {
-            new Alert(Alert.AlertType.ERROR, "Customer Not Added!!").show();
+            new Alert(Alert.AlertType.ERROR, "Customer Not Deleted!!").show();
 
         }
 
@@ -64,22 +88,17 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnCustomerDelete(ActionEvent event) {
-
-    }
-
-    @FXML
     void btnCustomerSearch(ActionEvent event) {
         Customer customerSearching = new Customer(
-                txtCustomerID.getText(),
+                null,
                 txtCustomerName.getText(),
                 txtContactNo.getText()
         );
-//        System.out.println(customerSearching);
+
         Customer customer = customerBo.searchCustomer(customerSearching);
         if (customer!=null) {
             new Alert(Alert.AlertType.INFORMATION, "Customer Found!!").show();
-            txtCustomerID.setText(customer.getId());
+            txtCustomerID.setText(String.valueOf(customer.getId()));
             txtCustomerName.setText(customer.getName());
             txtContactNo.setText(customer.getContactNumber());
         } else {
@@ -93,7 +112,28 @@ public class CustomerFormController {
 
     @FXML
     void btnCustomerUpdate(ActionEvent event) {
+        boolean isCustomerUpdated = customerBo.updateCustomer(
+                new Customer(
+                        Integer.parseInt(txtCustomerID.getText()),
+                        txtCustomerName.getText(),
+                        txtContactNo.getText()
+                )
+        );
+        if (isCustomerUpdated) {
+            new Alert(Alert.AlertType.INFORMATION, "Customer Updated!!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Customer Not Updated!!").show();
 
+        }
+
+        loadTable();
+    }
+
+    @FXML
+    void btnClear(ActionEvent event) {
+        txtCustomerID.setText("");
+        txtCustomerName.setText("");
+        txtContactNo.setText("");
     }
 
     private void loadTable(){
@@ -109,7 +149,7 @@ public class CustomerFormController {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM customer");
             while (resultSet.next()){
                 Customer customer = new Customer(
-                        resultSet.getString(1),
+                        resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3)
                 );

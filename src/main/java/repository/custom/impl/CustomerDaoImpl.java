@@ -28,8 +28,19 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public boolean update(String s, Customer entity) {
-        return false;
+    public boolean update(Customer entity) {
+        String SQL = "UPDATE customer SET name=?, contact_no=? WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+            psTm.setObject(1,entity.getName());
+            psTm.setObject(2,entity.getContactNumber());
+            psTm.setObject(3,entity.getId());
+            return psTm.executeUpdate()>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -62,7 +73,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
             if (rs.next()) {
                 customer = new Customer();
-                customer.setId(String.valueOf(rs.getInt("id")));
+                customer.setId(rs.getInt("id"));
                 customer.setName(rs.getString("name"));
                 customer.setContactNumber(rs.getString("contact_no"));
             }
@@ -75,8 +86,17 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public boolean delete(String s) {
-        return false;
+    public boolean delete(Integer cusId) {
+        String SQL = "DELETE FROM customer WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+            psTm.setObject(1,cusId);
+            return psTm.executeUpdate()>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

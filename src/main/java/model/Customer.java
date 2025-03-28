@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Customer {
-    private String id;
+    private Integer id;
     private String name;
     private String contactNumber;
 }
