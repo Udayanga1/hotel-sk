@@ -1,14 +1,12 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
+@Getter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
     private Integer id;
     private String name;

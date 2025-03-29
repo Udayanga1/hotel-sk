@@ -28,7 +28,7 @@
                 <Font name="System Bold" size="10.0" />
             </font>
         </Label>
-        <TextField fx:id="txtRoomID" cacheShape="false" disable="true" editable="false" layoutX="79.0" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" />
+        <TextField fx:id="txtRoomID" cacheShape="false" layoutX="79.0" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" />
         <Button layoutX="322.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnSearchOnAction" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Search" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="10.0" />
@@ -71,9 +71,9 @@
       <ComboBox fx:id="cmbType" layoutX="195.0" layoutY="14.0" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #ECECEC;">
           <items>
               <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Available" />
-                  <String fx:value="Occupied" />
-                  <String fx:value="Maintenance" />
+                  <String fx:value="Single" />
+                  <String fx:value="Double" />
+                  <String fx:value="Suite" />
               </FXCollections>
           </items>
       </ComboBox>
@@ -82,7 +82,6 @@
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="Available" />
                <String fx:value="Occupied" />
-               <String fx:value="Maintenance" />
             </FXCollections>
          </items>
       </ComboBox>

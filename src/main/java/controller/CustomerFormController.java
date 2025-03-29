@@ -10,13 +10,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import model.Customer;
 import service.BoFactory;
 import service.custom.CustomerBo;
 import util.BoType;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CustomerFormController {
@@ -43,6 +45,7 @@ public class CustomerFormController {
     private TextField txtCustomerName;
 
     CustomerBo customerBo = BoFactory.getInstance().getBoType(BoType.CUSTOMER);
+
 
     @FXML
     void btnCustomerAdd(ActionEvent event) {
@@ -130,7 +133,7 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnClear(ActionEvent event) {
+    private void btnClear(ActionEvent event) {
         txtCustomerID.setText("");
         txtCustomerName.setText("");
         txtContactNo.setText("");

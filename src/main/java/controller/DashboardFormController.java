@@ -71,6 +71,7 @@ public class DashboardFormController {
         loadFormContent.getChildren().add(load);
 
         setBtnBackgroundCol(btnLoadRoomMgt);
+
     }
 
     private void setBtnBackgroundCol(Button button){
