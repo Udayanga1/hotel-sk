@@ -15,7 +15,6 @@ public class RoomBoImpl implements RoomBo {
 
     @Override
     public boolean addRoom(Room room) {
-        System.out.println("RoomBoImpl: " + room);
         return roomDao.save(room);
     }
 
@@ -25,13 +24,15 @@ public class RoomBoImpl implements RoomBo {
     }
 
     @Override
-    public Customer searchRoom(Room room) {
-        return null;
+    public Room searchRoom(Integer roomNo) {
+        Room room = new Room();
+        room.setId(roomNo);
+        return roomDao.search(room);
     }
 
     @Override
-    public List<Customer> getAll() {
-        return List.of();
+    public List<Room> getAll() {
+        return roomDao.getAll();
     }
 
     @Override

@@ -109,8 +109,6 @@ public class CustomerFormController {
             txtCustomerID.setText("");
         }
 
-        System.out.println("received to controller: " + customer);
-
     }
 
     @FXML
@@ -146,22 +144,9 @@ public class CustomerFormController {
         ArrayList<Customer> customerArrayList = new ArrayList<>();
         ObservableList<Customer> customerObservableList = FXCollections.observableArrayList();
 
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM customer");
-            while (resultSet.next()){
-                Customer customer = new Customer(
-                        resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3)
-                );
-                customerArrayList.add(customer);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        customerBo.getAll().forEach(customer -> {
+            customerArrayList.add(customer);
+        });
 
         customerArrayList.forEach(customer -> {
             customerObservableList.add(customer);

@@ -2,12 +2,14 @@ package repository.custom.impl;
 
 import db.DBConnection;
 import model.Customer;
+import model.Room;
 import repository.custom.CustomerDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDaoImpl implements CustomerDao {
@@ -17,13 +19,17 @@ public class CustomerDaoImpl implements CustomerDao {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement psTm = connection.prepareStatement(SQL);
+
             psTm.setObject(1,entity.getName());
             psTm.setObject(2,entity.getContactNumber());
-            return psTm.executeUpdate()>0;
+            int rowsAffected = psTm.executeUpdate();
+
+            return rowsAffected > 0;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error saving customer", e);
         }
+
 
     }
 
@@ -101,6 +107,26 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public List<Customer> getAll() {
-        return null;
+        String SQL = "SELECT * FROM customer";
+        List<Customer> customerList = new ArrayList<>();
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement psTm = connection.prepareStatement(SQL);
+             ResultSet resultSet = psTm.executeQuery()) {
+
+            while (resultSet.next()) {
+                Customer customer = new Customer(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3)
+                );
+                customerList.add(customer);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving customers", e);
+        }
+
+        return customerList;
     }
 }

@@ -29,12 +29,12 @@
             </font>
         </Label>
         <TextField fx:id="txtRoomID" cacheShape="false" layoutX="79.0" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" />
-        <Button layoutX="322.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnSearchOnAction" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Search" textFill="WHITE">
+        <Button layoutX="264.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnSearchOnAction" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Search By Room No" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="10.0" />
             </font>
         </Button>
-        <Button layoutX="385.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnAddOnAction" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Add" textFill="WHITE">
+        <Button layoutX="389.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnAddOnAction" style="-fx-background-color: #1232d3; -fx-background-radius: 0;" text="Add" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="10.0" />
             </font>
@@ -57,7 +57,7 @@
                 <TableColumn fx:id="colRoomStatus" prefWidth="124.0" text="Status" />
             </columns>
         </TableView>
-        <Button layoutX="254.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnClearOnAction" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Clear" textFill="WHITE">
+        <Button layoutX="207.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnClearOnAction" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Clear" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="10.0" />
             </font>

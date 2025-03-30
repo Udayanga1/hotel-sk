@@ -29,7 +29,7 @@ public class CustomerBoImpl implements CustomerBo {
 
     @Override
     public List<Customer> getAll() {
-        return List.of();
+        return customerDao.getAll();
     }
 
     @Override

@@ -8,18 +8,36 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static DBConnection instance;
+    private static final String URL = "jdbc:mysql://localhost:3306/hotel_sk";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "1234";
 
     @Getter
     private Connection connection;
 
     private DBConnection() throws SQLException {
-        String URL = "jdbc:mysql://localhost:3306/hotel_sk";
-        String userName = "root";
-        String password = "1234";
-        this.connection = DriverManager.getConnection(URL, userName, password);
+        this.connection = createNewConnection();
     }
 
-    public static DBConnection getInstance() throws SQLException {
-        return instance==null ? instance = new DBConnection() : instance;
+    public static synchronized DBConnection getInstance() throws SQLException {
+        if (instance == null || instance.connection.isClosed()) {
+            instance = new DBConnection();
+        }
+        return instance;
+    }
+
+    private Connection createNewConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        return conn;
+    }
+
+    public void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error closing database connection", e);
+        }
     }
 }
