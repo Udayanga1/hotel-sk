@@ -39,7 +39,7 @@
                 <Font name="System Bold" size="10.0" />
             </font>
         </Button>
-        <Button layoutX="439.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnAddOnAction" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Update" textFill="WHITE">
+        <Button layoutX="439.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Update" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="10.0" />
             </font>

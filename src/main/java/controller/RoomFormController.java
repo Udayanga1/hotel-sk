@@ -77,18 +77,23 @@ public class RoomFormController {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        boolean isRoomDeleted = roomBo.deleteRoom(Integer.parseInt(txtRoomID.getText()));
+        if (isRoomDeleted) {
+            new Alert(Alert.AlertType.INFORMATION, "Room Deleted!!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Room Not Deleted!!").show();
 
+        }
+
+        loadTable();
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         Integer roomNo = Integer.parseInt(txtRoomID.getText());
 
-
-
         Room room = roomBo.searchRoom(roomNo);
 
-        System.out.println("Received to controller: " + room);
         if (room!=null) {
             new Alert(Alert.AlertType.INFORMATION, "Room Found!!").show();
             cmbType.setValue(room.getType());
@@ -97,6 +102,26 @@ public class RoomFormController {
         } else {
             new Alert(Alert.AlertType.ERROR, "Room Not Found!!").show();
         }
+    }
+
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) {
+        boolean isRoomUpdated = roomBo.updateRoom(
+                new Room(
+                        Integer.parseInt(txtRoomID.getText()),
+                        cmbType.getValue().toString(),
+                        Double.parseDouble(txtRoomPrice.getText().toString()),
+                        cmbStatus.getValue().toString()
+                )
+        );
+        if (isRoomUpdated) {
+            new Alert(Alert.AlertType.INFORMATION, "Room Updated!!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Room Not Updated!!").show();
+
+        }
+
+        loadTable();
     }
 
     private void clearInputFields(){

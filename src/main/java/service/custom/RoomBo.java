@@ -11,5 +11,5 @@ public interface RoomBo extends SuperService {
     boolean updateRoom(Room room);
     Room searchRoom(Integer roomNo);
     List<Room> getAll();
-    boolean deleteRoom(Room room);
+    boolean deleteRoom(Integer roomNo);
 }

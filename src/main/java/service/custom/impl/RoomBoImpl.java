@@ -20,7 +20,7 @@ public class RoomBoImpl implements RoomBo {
 
     @Override
     public boolean updateRoom(Room room) {
-        return false;
+        return roomDao.update(room);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class RoomBoImpl implements RoomBo {
     }
 
     @Override
-    public boolean deleteRoom(Room room) {
-        return false;
+    public boolean deleteRoom(Integer roomNo) {
+        return roomDao.delete(roomNo);
     }
 }

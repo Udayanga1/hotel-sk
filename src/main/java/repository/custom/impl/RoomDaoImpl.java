@@ -31,7 +31,19 @@ public class RoomDaoImpl implements RoomDao {
 
     @Override
     public boolean update(Room entity) {
-        return false;
+        String SQL = "UPDATE room SET type=?, price=?, status=? WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+            psTm.setObject(1,entity.getType());
+            psTm.setObject(2,entity.getPrice());
+            psTm.setObject(3,entity.getStatus());
+            psTm.setObject(4,entity.getId());
+            return psTm.executeUpdate()>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -69,8 +81,17 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public boolean delete(Integer roomNo) {
+        String SQL = "DELETE FROM room WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+            psTm.setObject(1,roomNo);
+            return psTm.executeUpdate()>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -83,7 +104,6 @@ public class RoomDaoImpl implements RoomDao {
              ResultSet resultSet = psTm.executeQuery()) {
 
             while (resultSet.next()) {
-                // Assuming Room has a constructor Room(int id, String type, double price, String status)
                 Room room = new Room(
                         resultSet.getInt(1),
                         resultSet.getString(2),
