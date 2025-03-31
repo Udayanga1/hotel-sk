@@ -1,6 +1,5 @@
 package service.custom;
 
-import model.Customer;
 import model.Room;
 import service.SuperService;
 

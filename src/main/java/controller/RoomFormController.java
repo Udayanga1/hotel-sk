@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Customer;
 import model.Room;
 import service.BoFactory;
 import service.custom.RoomBo;
@@ -48,7 +47,7 @@ public class RoomFormController {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         if (txtRoomID.getText().length()>0){
-            new Alert(Alert.AlertType.ERROR, "Please clear the fields before adding a new customer").show();
+            new Alert(Alert.AlertType.ERROR, "Please clear the fields before adding a new room").show();
         } else {
             boolean isRoomAdd = roomBo.addRoom(
                     new Room(
