@@ -2,12 +2,14 @@ package repository.custom.impl;
 
 import db.DBConnection;
 import model.Reservation;
+import model.Room;
 import repository.custom.ReservationDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationDaoImpl implements ReservationDao {
@@ -110,7 +112,6 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public boolean save(Reservation entity) {
-        System.out.println("ResDaoImpl: " + entity);
         String SQL = "INSERT INTO reservation (cusId, roomNo, checkInDate, checkOutDate) VALUES(?,?,?,?)";
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -146,6 +147,28 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public List<Reservation> getAll() {
-        return List.of();
+        String SQL = "SELECT * FROM reservation";
+        List<Reservation> reservationList = new ArrayList<>();
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement psTm = connection.prepareStatement(SQL);
+             ResultSet resultSet = psTm.executeQuery()) {
+
+            while (resultSet.next()) {
+                Reservation reservation = new Reservation(
+                        resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getDate(4).toLocalDate(),
+                        resultSet.getDate(5).toLocalDate()
+                );
+                reservationList.add(reservation);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving reservations: ", e);
+        }
+
+        return reservationList;
     }
 }

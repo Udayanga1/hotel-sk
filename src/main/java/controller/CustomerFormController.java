@@ -155,6 +155,11 @@ public class CustomerFormController {
         tblCustomers.setItems(customerObservableList);
     }
 
+    @FXML
+    public void initialize(){
+        loadTable();
+    }
+
 
 
 }

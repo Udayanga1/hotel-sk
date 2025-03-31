@@ -1,8 +1,11 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import model.Reservation;
 import model.Room;
@@ -14,7 +17,9 @@ import util.BoType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ReservationFormController {
@@ -26,10 +31,10 @@ public class ReservationFormController {
     private TableColumn colCheckOut;
 
     @FXML
-    private TableColumn colCusName;
+    private TableColumn colCusId;
 
     @FXML
-    private TableColumn colPrice;
+    private TableColumn colResId;
 
     @FXML
     private TableColumn colRoomNo;
@@ -74,7 +79,8 @@ public class ReservationFormController {
                 txtRoomNo.getText().length()==0 ||
                 txtCheckInDate.getValue()==null ||
                 txtCheckOutDate.getValue()==null ||
-                txtCheckInDate.getValue().isAfter(txtCheckOutDate.getValue())
+                txtCheckInDate.getValue().isAfter(txtCheckOutDate.getValue()) ||
+                !Objects.equals(reservationBo.getRoomStatus(Integer.parseInt(txtRoomNo.getText())), "Available")
         ) {
             new Alert(Alert.AlertType.ERROR, "Please input valid data!!").show();
         } else {
@@ -84,7 +90,7 @@ public class ReservationFormController {
                         Integer.parseInt(txtCusID.getText()),
                         Integer.parseInt(txtRoomNo.getText()),
                         txtCheckInDate.getValue(),
-                        txtCheckInDate.getValue()
+                        txtCheckOutDate.getValue()
                 )
             );
             if (isReservationAdd) {
@@ -101,14 +107,13 @@ public class ReservationFormController {
 
             }
 
-//            loadTable();
-//            clearInputFields();
+            loadTable();
         }
     }
 
     @FXML
     void btnClearOnAction(ActionEvent event) {
-
+        clearInputFields();
     }
 
     @FXML
@@ -161,7 +166,38 @@ public class ReservationFormController {
                 }
             }
         });
+        loadTable();
+    }
 
+    private void clearInputFields(){
+        txtReservationId.setText("");
+        txtCusID.setText("");
+        txtCusName.setText("");
+        txtRoomNo.setText("");
+        txtCheckInDate.setValue(null);
+        txtCheckOutDate.setValue(null);
+    }
+
+    private void loadTable(){
+        colResId.setCellValueFactory(new PropertyValueFactory<>("reservationId"));
+        colCusId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        colRoomNo.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
+        colCheckIn.setCellValueFactory(new PropertyValueFactory<>("checkInDate"));
+        colCheckOut.setCellValueFactory(new PropertyValueFactory<>("checkOutDate"));
+
+        ArrayList<Reservation> reservationArrayList = new ArrayList<>();
+        ObservableList<Reservation> reservationObservableList = FXCollections.observableArrayList();
+
+        reservationBo.getAll().forEach(reservation -> {
+            reservationArrayList.add(reservation);
+        });
+
+
+        reservationArrayList.forEach(room -> {
+            reservationObservableList.add(room);
+        });
+
+        tblReservation.setItems(reservationObservableList);
     }
 
 

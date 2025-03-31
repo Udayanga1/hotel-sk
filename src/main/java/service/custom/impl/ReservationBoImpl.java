@@ -33,7 +33,7 @@ public class ReservationBoImpl implements ReservationBo {
 
     @Override
     public List<Reservation> getAll() {
-        return List.of();
+        return reservationDao.getAll();
     }
 
     @Override

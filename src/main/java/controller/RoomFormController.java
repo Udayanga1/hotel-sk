@@ -149,4 +149,9 @@ public class RoomFormController {
 
         tblRooms.setItems(roomObservableList);
     }
+
+    @FXML
+    public void initialize(){
+        loadTable();
+    }
 }
