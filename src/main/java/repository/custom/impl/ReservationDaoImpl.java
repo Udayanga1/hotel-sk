@@ -1,6 +1,7 @@
 package repository.custom.impl;
 
 import db.DBConnection;
+import model.Customer;
 import model.Reservation;
 import model.Room;
 import repository.custom.ReservationDao;
@@ -132,12 +133,61 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public boolean update(Reservation entity) {
-        return false;
+        String SQL = "UPDATE reservation SET cus_id=?, room_no=?, check_in_date=?, check_out_date=? WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+            psTm.setObject(1,entity.getCustomerId());
+            psTm.setObject(2,entity.getRoomNo());
+            psTm.setObject(3,entity.getCheckInDate());
+            psTm.setObject(4,entity.getCheckOutDate());
+            psTm.setObject(5,entity.getReservationId());
+            return psTm.executeUpdate()>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating reservation: " + e);
+        }
     }
+
 
     @Override
     public Reservation search(Reservation entity) {
-        return null;
+        String SQL = "";
+        if (entity.getCheckInDate() != null || entity.getCheckOutDate() != null){
+            SQL = "SELECT * FROM reservation WHERE cusId = ? AND roomNo = ? AND checkInDate >= ? AND checkOutDate <= ? ORDER BY id DESC LIMIT 1";
+        } else {
+            SQL = "SELECT * FROM reservation WHERE cusId = ? AND roomNo = ? ORDER BY id DESC LIMIT 1";
+        }
+
+        Reservation reservation = null;
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement psTm = connection.prepareStatement(SQL)) {
+
+            psTm.setInt(1, entity.getCustomerId());
+            psTm.setInt(2, entity.getRoomNo());
+            if (entity.getCheckInDate() != null || entity.getCheckOutDate() != null){
+                psTm.setDate(3, java.sql.Date.valueOf(entity.getCheckInDate()));
+                psTm.setDate(4, java.sql.Date.valueOf(entity.getCheckOutDate()));
+            }
+
+            ResultSet rs = psTm.executeQuery();
+
+            if (rs.next()) {
+                reservation = new Reservation(
+                        rs.getInt("id"),
+                        rs.getInt("cusId"),
+                        rs.getInt("roomNo"),
+                        rs.getDate("checkInDate").toLocalDate(),
+                        rs.getDate("checkOutDate").toLocalDate()
+                );
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error searching for reservation: ", e);
+        }
+        return reservation;
     }
 
     @Override

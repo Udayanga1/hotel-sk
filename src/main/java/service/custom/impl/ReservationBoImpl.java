@@ -23,12 +23,12 @@ public class ReservationBoImpl implements ReservationBo {
 
     @Override
     public boolean updateReservation(Reservation reservation) {
-        return false;
+        return reservationDao.update(reservation);
     }
 
     @Override
     public Reservation searchReservation(Reservation reservation) {
-        return null;
+        return reservationDao.search(reservation);
     }
 
     @Override

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
+import model.Customer;
 import model.Reservation;
 import model.Room;
 import service.BoFactory;
@@ -123,20 +124,48 @@ public class ReservationFormController {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        Reservation reservationSearching = new Reservation(
+                null,
+                Integer.parseInt(txtCusID.getText()),
+                Integer.parseInt(txtRoomNo.getText()),
+                txtCheckInDate.getValue(),
+                txtCheckOutDate.getValue()
+        );
 
-        if (txtCheckInDate.getValue() != null && txtCheckOutDate.getValue() != null) {
-            long daysBetween = ChronoUnit.DAYS.between(txtCheckInDate.getValue(), txtCheckOutDate.getValue());
-            System.out.println("Number of days: " + daysBetween);
+        Reservation reservation = reservationBo.searchReservation(reservationSearching);
+        if (reservation!=null) {
+            new Alert(Alert.AlertType.INFORMATION, "Reservation Found!!").show();
+            txtReservationId.setText(String.valueOf(reservation.getReservationId()));
+            txtCusID.setText(String.valueOf(reservation.getCustomerId()));
+            txtRoomNo.setText(String.valueOf(reservation.getRoomNo()));
+            txtCheckInDate.setValue(reservation.getCheckInDate());
+            txtCheckOutDate.setValue(reservation.getCheckOutDate());
+
         } else {
-            System.out.println("Please select both check-in and check-out dates.");
+            new Alert(Alert.AlertType.ERROR, "Reservation Not Found!!").show();
+            txtReservationId.setText("");
         }
-
-
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        boolean isReservationUpdated = reservationBo.updateReservation(
+                new Reservation(
+                        Integer.parseInt(txtReservationId.getText()),
+                        Integer.parseInt(txtCusID.getText()),
+                        Integer.parseInt(txtRoomNo.getText()),
+                        txtCheckInDate.getValue(),
+                        txtCheckOutDate.getValue()
+                )
+        );
+        if (isReservationUpdated) {
+            new Alert(Alert.AlertType.INFORMATION, "Reservation Updated!!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Reservation Not Updated!!").show();
 
+        }
+
+        loadTable();
     }
 
     @FXML
@@ -154,18 +183,17 @@ public class ReservationFormController {
             }
         });
 
-        txtRoomNo.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                String roomStatus = reservationBo.getRoomStatus(Integer.parseInt(txtRoomNo.getText()));
-                if (roomStatus==null){
-                    new Alert(Alert.AlertType.ERROR, "Room: " + txtRoomNo.getText() +" is not Available!!").show();
-                    txtRoomNo.setText("");
-                } else if (roomStatus.equals("Occupied")) {
-                    new Alert(Alert.AlertType.ERROR, "Room: " + txtRoomNo.getText() +" is already Occupied!!").show();
-                    txtRoomNo.setText("");
-                }
-            }
-        });
+//        txtRoomNo.focusedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue) {
+//                String roomStatus = reservationBo.getRoomStatus(Integer.parseInt(txtRoomNo.getText()));
+//                if (roomStatus==null){
+//                    new Alert(Alert.AlertType.ERROR, "Room: " + txtRoomNo.getText() +" is not Available!!").show();
+//                    txtRoomNo.setText("");
+//                } else if (roomStatus.equals("Occupied")) {
+//                    new Alert(Alert.AlertType.ERROR, "Room: " + txtRoomNo.getText() +" is already Occupied!!").show();
+//                }
+//            }
+//        });
         loadTable();
     }
 
