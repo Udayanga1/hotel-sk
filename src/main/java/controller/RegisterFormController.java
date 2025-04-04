@@ -1,6 +1,5 @@
 package controller;
 
-import db.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,21 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import model.Customer;
-import model.User;
-
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import model.User;
 import service.BoFactory;
-import service.custom.CustomerBo;
 import service.custom.UserBo;
 import util.BoType;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class RegisterFormController {
 

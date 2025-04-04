@@ -3,7 +3,6 @@ package service.custom;
 import model.Reservation;
 import service.SuperService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationBo extends SuperService {

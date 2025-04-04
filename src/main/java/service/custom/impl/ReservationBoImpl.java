@@ -3,13 +3,9 @@ package service.custom.impl;
 import model.Reservation;
 import repository.DaoFactory;
 import repository.custom.ReservationDao;
-import repository.custom.RoomDao;
-import repository.custom.impl.ReservationDaoImpl;
 import service.custom.ReservationBo;
 import util.DaoType;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ReservationBoImpl implements ReservationBo {
@@ -38,7 +34,7 @@ public class ReservationBoImpl implements ReservationBo {
 
     @Override
     public boolean deleteReservation(Integer reservationNo) {
-        return false;
+        return reservationDao.delete(reservationNo);
     }
 
     @Override

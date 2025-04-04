@@ -1,6 +1,5 @@
 package service.custom.impl;
 
-import model.Customer;
 import model.Room;
 import repository.DaoFactory;
 import repository.custom.RoomDao;

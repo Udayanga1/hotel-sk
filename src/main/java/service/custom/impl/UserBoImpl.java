@@ -1,9 +1,7 @@
 package service.custom.impl;
 
-import model.Customer;
 import model.User;
 import repository.DaoFactory;
-import repository.custom.CustomerDao;
 import repository.custom.UserDao;
 import service.custom.UserBo;
 import util.DaoType;

@@ -6,22 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
-import model.Customer;
 import model.Reservation;
-import model.Room;
 import service.BoFactory;
 import service.custom.ReservationBo;
-import service.custom.RoomBo;
 import util.BoType;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class ReservationFormController {
 
@@ -68,11 +60,6 @@ public class ReservationFormController {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
-        if (txtCusName.getText().length()>0) {
-            System.out.println("availabe cus");
-        } else {
-            System.out.println("Unavailable");
-        }
         if (txtReservationId.getText().length()>0) {
             new Alert(Alert.AlertType.ERROR, "Please clear the fields before adding a new reservation").show();
         } else if (txtCusID.getText().length()==0 ||
@@ -96,12 +83,7 @@ public class ReservationFormController {
             );
             if (isReservationAdd) {
                 reservationBo.makeRoomOccupied(Integer.parseInt(txtRoomNo.getText()));
-                long daysBetween = ChronoUnit.DAYS.between(txtCheckInDate.getValue(), txtCheckOutDate.getValue());
-                Double totalAmount = reservationBo.getTotalAmount(daysBetween, Integer.parseInt(txtRoomNo.getText()));
-
-                txtTotalAmount.setText("Rs " + totalAmount);
-//                System.out.println(totalAmount);
-
+                displayTotalAmount();
                 new Alert(Alert.AlertType.INFORMATION, "Reservation Added!!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Reservation Not Added!!").show();
@@ -119,7 +101,14 @@ public class ReservationFormController {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        boolean isReservationDeleted = reservationBo.deleteReservation(Integer.parseInt(txtReservationId.getText()));
+        if (isReservationDeleted) {
+            new Alert(Alert.AlertType.INFORMATION, "Reservation Deleted!!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Reservation Not Deleted!!").show();
+        }
 
+        loadTable();
     }
 
     @FXML
@@ -141,6 +130,8 @@ public class ReservationFormController {
             txtCheckInDate.setValue(reservation.getCheckInDate());
             txtCheckOutDate.setValue(reservation.getCheckOutDate());
 
+            displayTotalAmount();
+
         } else {
             new Alert(Alert.AlertType.ERROR, "Reservation Not Found!!").show();
             txtReservationId.setText("");
@@ -160,6 +151,7 @@ public class ReservationFormController {
         );
         if (isReservationUpdated) {
             new Alert(Alert.AlertType.INFORMATION, "Reservation Updated!!").show();
+            displayTotalAmount();
         } else {
             new Alert(Alert.AlertType.ERROR, "Reservation Not Updated!!").show();
 
@@ -183,17 +175,6 @@ public class ReservationFormController {
             }
         });
 
-//        txtRoomNo.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (!newValue) {
-//                String roomStatus = reservationBo.getRoomStatus(Integer.parseInt(txtRoomNo.getText()));
-//                if (roomStatus==null){
-//                    new Alert(Alert.AlertType.ERROR, "Room: " + txtRoomNo.getText() +" is not Available!!").show();
-//                    txtRoomNo.setText("");
-//                } else if (roomStatus.equals("Occupied")) {
-//                    new Alert(Alert.AlertType.ERROR, "Room: " + txtRoomNo.getText() +" is already Occupied!!").show();
-//                }
-//            }
-//        });
         loadTable();
     }
 
@@ -226,6 +207,13 @@ public class ReservationFormController {
         });
 
         tblReservation.setItems(reservationObservableList);
+    }
+
+    private void displayTotalAmount(){
+        long daysBetween = ChronoUnit.DAYS.between(txtCheckInDate.getValue(), txtCheckOutDate.getValue());
+        Double totalAmount = reservationBo.getTotalAmount(daysBetween, Integer.parseInt(txtRoomNo.getText()));
+
+        txtTotalAmount.setText("Rs " + totalAmount);
     }
 
 

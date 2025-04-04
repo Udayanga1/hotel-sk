@@ -1,7 +1,6 @@
 package repository.custom.impl;
 
 import db.DBConnection;
-import model.Customer;
 import model.Room;
 import repository.custom.RoomDao;
 

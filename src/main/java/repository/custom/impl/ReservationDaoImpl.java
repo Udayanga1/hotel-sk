@@ -1,9 +1,7 @@
 package repository.custom.impl;
 
 import db.DBConnection;
-import model.Customer;
 import model.Reservation;
-import model.Room;
 import repository.custom.ReservationDao;
 
 import java.sql.Connection;
@@ -133,7 +131,9 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public boolean update(Reservation entity) {
-        String SQL = "UPDATE reservation SET cus_id=?, room_no=?, check_in_date=?, check_out_date=? WHERE id=?";
+        System.out.println("entity from update in ResDaoImpl: " + entity);
+
+        String SQL = "UPDATE reservation SET cusId=?, roomNo=?, checkInDate=?, checkOutDate=? WHERE id=?";
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement psTm = connection.prepareStatement(SQL);
@@ -191,8 +191,17 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public boolean delete(Integer reservationId) {
+        String SQL = "DELETE FROM reservation WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+            psTm.setObject(1,reservationId);
+            return psTm.executeUpdate()>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
