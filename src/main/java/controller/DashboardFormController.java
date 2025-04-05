@@ -31,8 +31,17 @@ public class DashboardFormController {
     private AnchorPane loadFormContent;
 
     @FXML
-    void btnBillingOnAction(ActionEvent event) {
+    void btnBillingOnAction(ActionEvent event) throws IOException {
+        URL resource = this.getClass().getResource("/view/billing_form.fxml");
 
+        assert resource !=null;
+
+        Parent load = FXMLLoader.load(resource);
+
+        loadFormContent.getChildren().clear();
+        loadFormContent.getChildren().add(load);
+
+        setBtnBackgroundCol(btnLoadBillingt);
     }
 
     @FXML
