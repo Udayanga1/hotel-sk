@@ -2,7 +2,6 @@ package service.custom;
 
 import model.Reservation;
 import service.SuperService;
-
 import java.util.List;
 
 public interface ReservationBo extends SuperService {

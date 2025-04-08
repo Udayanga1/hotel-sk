@@ -16,7 +16,7 @@ public class DashboardFormController {
     private Button btnLoadBillingt;
 
     @FXML
-    private Button btnLoadCheckInOutMgt;
+    private Button txtLogout;
 
     @FXML
     private Button btnLoadRCustomerMgt;
@@ -95,7 +95,6 @@ public class DashboardFormController {
     private void setBtnBackgroundCol(Button button){
 
         btnLoadBillingt.setStyle("-fx-background-color: #C56B82;");
-        btnLoadCheckInOutMgt.setStyle("-fx-background-color: #C56B82;");
         btnLoadRCustomerMgt.setStyle("-fx-background-color: #C56B82;");
         btnLoadReservationMgt.setStyle("-fx-background-color: #C56B82;");
         btnLoadRoomMgt.setStyle("-fx-background-color: #C56B82;");

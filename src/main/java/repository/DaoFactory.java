@@ -1,9 +1,6 @@
 package repository;
 
-import repository.custom.impl.CustomerDaoImpl;
-import repository.custom.impl.ReservationDaoImpl;
-import repository.custom.impl.RoomDaoImpl;
-import repository.custom.impl.UserDaoImpl;
+import repository.custom.impl.*;
 import util.DaoType;
 
 public class DaoFactory {
@@ -19,6 +16,7 @@ public class DaoFactory {
             case USER: return (T) new UserDaoImpl();
             case ROOM: return (T) new RoomDaoImpl();
             case RESERVATION: return (T) new ReservationDaoImpl();
+            case BILL: return (T) new BillingDaoImpl();
         }
         return null;
     }

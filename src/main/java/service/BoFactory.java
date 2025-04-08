@@ -1,9 +1,6 @@
 package service;
 
-import service.custom.impl.CustomerBoImpl;
-import service.custom.impl.ReservationBoImpl;
-import service.custom.impl.RoomBoImpl;
-import service.custom.impl.UserBoImpl;
+import service.custom.impl.*;
 import util.BoType;
 
 public class BoFactory {
@@ -19,6 +16,7 @@ public class BoFactory {
             case USER: return (T) new UserBoImpl();
             case ROOM: return (T) new RoomBoImpl();
             case RESERVATION: return (T) new ReservationBoImpl();
+            case BILL: return (T) new BillingBoImpl();
         }
         return null;
 
