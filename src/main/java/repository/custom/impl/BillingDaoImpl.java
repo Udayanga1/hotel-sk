@@ -15,7 +15,24 @@ import java.util.List;
 public class BillingDaoImpl implements BillingDao {
     @Override
     public boolean save(Payment entity) {
-        return false;
+
+        String SQL = "INSERT INTO payment (reservation_no, pay_date, total_due, discount, tax) VALUES (?,?,?,?,?)";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+
+            psTm.setObject(1,entity.getReservationNo());
+            psTm.setObject(2,entity.getPayDate());
+            psTm.setObject(3,entity.getTotalDue());
+            psTm.setObject(4,entity.getDiscount());
+            psTm.setObject(5,entity.getTax());
+            int rowsAffected = psTm.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error saving payment: ", e);
+        }
     }
 
     @Override

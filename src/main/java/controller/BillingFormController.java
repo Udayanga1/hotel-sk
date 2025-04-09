@@ -3,6 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import model.Customer;
 import model.Payment;
 import service.BoFactory;
 import service.custom.BillingBo;
@@ -53,7 +54,32 @@ public class BillingFormController {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        if (txtDiscount.getText().length()==0){
+            txtDiscount.setText("0");
+        }
 
+        if (txtInvoiceNo.getText().length()>0){
+            new Alert(Alert.AlertType.ERROR, "Please clear the fields before making a new payment").show();
+        } else {
+            boolean isPaymentMade = billingBo.makePayment(
+                    new Payment(
+                            null,
+                            Integer.parseInt(txtReservationId.getText()),
+                            txtPayDate.getValue(),
+                            Double.parseDouble(txtTotalDue.getText()),
+                            Double.parseDouble(txtDiscount.getText()),
+                            Double.parseDouble(txtTaxes.getText())
+                    )
+            );
+            if (isPaymentMade) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment Made!!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Payment Not Made!!").show();
+
+            }
+
+//            loadTable();
+        }
     }
 
     @FXML
@@ -86,11 +112,6 @@ public class BillingFormController {
                 Payment payment = billingBo.getDetails(reservationNo);
                 System.out.println("payment received to controller: " + payment);
 
-//                txtDiscount.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//                    if (!newValue) {
-//
-//                    }
-//                });
 
                 if (payment!=null){
                     Double totalPerReservation = payment.getTotalDue();

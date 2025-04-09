@@ -1,6 +1,5 @@
 package controller;
 
-import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,10 +14,6 @@ import service.BoFactory;
 import service.custom.CustomerBo;
 import util.BoType;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CustomerFormController {
