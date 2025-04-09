@@ -6,7 +6,7 @@ import service.SuperService;
 import java.util.List;
 
 public interface BillingBo extends SuperService {
-    boolean makePayment(Payment payment);
+    String makePayment(Payment payment);
     boolean updatePayment(Payment payment);
     Payment searchPayment(Payment payment);
     List<Payment> getAll();

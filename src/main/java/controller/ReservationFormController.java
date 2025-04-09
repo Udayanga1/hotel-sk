@@ -101,9 +101,16 @@ public class ReservationFormController {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        boolean isReservationDeleted = reservationBo.deleteReservation(Integer.parseInt(txtReservationId.getText()));
-        if (isReservationDeleted) {
-            new Alert(Alert.AlertType.INFORMATION, "Reservation Deleted!!").show();
+        String reservationStatus = reservationBo.deleteReservation(Integer.parseInt(txtReservationId.getText()));
+
+        if (reservationStatus != null) {
+            if(reservationStatus.equals("paid")){
+                new Alert(Alert.AlertType.ERROR, "Reservation is paid.. Remove payment before delete!!").show();
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Reservation Deleted!!").show();
+                displayTotalAmount();
+            }
+
         } else {
             new Alert(Alert.AlertType.ERROR, "Reservation Not Deleted!!").show();
         }
@@ -140,7 +147,7 @@ public class ReservationFormController {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        boolean isReservationUpdated = reservationBo.updateReservation(
+        String reservationStatus = reservationBo.updateReservation(
                 new Reservation(
                         Integer.parseInt(txtReservationId.getText()),
                         Integer.parseInt(txtCusID.getText()),
@@ -149,12 +156,16 @@ public class ReservationFormController {
                         txtCheckOutDate.getValue()
                 )
         );
-        if (isReservationUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Reservation Updated!!").show();
-            displayTotalAmount();
+        if (reservationStatus != null) {
+            if(reservationStatus.equals("paid")){
+                new Alert(Alert.AlertType.ERROR, "Reservation is paid.. Remove payment before update!!").show();
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Reservation Updated!!").show();
+                displayTotalAmount();
+            }
+
         } else {
             new Alert(Alert.AlertType.ERROR, "Reservation Not Updated!!").show();
-
         }
 
         loadTable();

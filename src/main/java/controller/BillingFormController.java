@@ -61,7 +61,7 @@ public class BillingFormController {
         if (txtInvoiceNo.getText().length()>0){
             new Alert(Alert.AlertType.ERROR, "Please clear the fields before making a new payment").show();
         } else {
-            boolean isPaymentMade = billingBo.makePayment(
+            String isPaymentMade = billingBo.makePayment(
                     new Payment(
                             null,
                             Integer.parseInt(txtReservationId.getText()),
@@ -71,8 +71,13 @@ public class BillingFormController {
                             Double.parseDouble(txtTaxes.getText())
                     )
             );
-            if (isPaymentMade) {
-                new Alert(Alert.AlertType.INFORMATION, "Payment Made!!").show();
+            if (isPaymentMade!=null) {
+                if (isPaymentMade.equals("already paid")){
+                    new Alert(Alert.AlertType.ERROR, "Reservation is already paid..!!").show();
+                } else {
+                    new Alert(Alert.AlertType.INFORMATION, "Payment Made!!").show();
+                }
+
             } else {
                 new Alert(Alert.AlertType.ERROR, "Payment Not Made!!").show();
 

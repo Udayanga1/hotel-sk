@@ -109,4 +109,45 @@ public class BillingDaoImpl implements BillingDao {
         }
         return roomPrice;
     }
+
+    @Override
+    public String getReservationStatus(Integer reservationNo) {
+        String SQL = "SELECT status from reservation WHERE id = ?";
+
+        String reservationStatus = null;
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement psTm = connection.prepareStatement(SQL)) {
+
+            psTm.setInt(1, reservationNo);
+
+            ResultSet rs = psTm.executeQuery();
+
+            if (rs.next()) {
+                reservationStatus = rs.getString("status");
+
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error searching for reservation: ", e);
+        }
+        return reservationStatus;
+    }
+
+    @Override
+    public void updateReservationStatus(Integer reservationNo, String status) {
+
+        String SQL = "UPDATE reservation SET status=? WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+            psTm.setObject(1, status);
+            psTm.setObject(2, reservationNo);
+            psTm.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating reservation: " + e);
+        }
+    }
 }

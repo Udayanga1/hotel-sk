@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface ReservationBo extends SuperService {
     boolean addReservation(Reservation reservation);
-    boolean updateReservation(Reservation reservation);
+    String updateReservation(Reservation reservation);
     Reservation searchReservation(Reservation reservation);
     List<Reservation> getAll();
-    boolean deleteReservation(Integer reservationNo);
+    String deleteReservation(Integer reservationNo);
 
     String getCustomerName(Integer cusId);
 

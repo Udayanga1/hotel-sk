@@ -110,6 +110,31 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
+    public String getReservationStatus(Integer reservationNo) {
+        String SQL = "SELECT status from reservation WHERE id = ?";
+
+        String reservationStatus = null;
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement psTm = connection.prepareStatement(SQL)) {
+
+            psTm.setInt(1, reservationNo);
+
+            ResultSet rs = psTm.executeQuery();
+
+            if (rs.next()) {
+                reservationStatus = rs.getString("status");
+
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error searching for reservation: ", e);
+        }
+        return reservationStatus;
+    }
+
+    @Override
     public boolean save(Reservation entity) {
         String SQL = "INSERT INTO reservation (cusId, roomNo, checkInDate, checkOutDate) VALUES(?,?,?,?)";
         try {
@@ -131,7 +156,6 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public boolean update(Reservation entity) {
-        System.out.println("entity from update in ResDaoImpl: " + entity);
 
         String SQL = "UPDATE reservation SET cusId=?, roomNo=?, checkInDate=?, checkOutDate=? WHERE id=?";
         try {

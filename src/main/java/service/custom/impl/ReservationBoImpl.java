@@ -18,8 +18,21 @@ public class ReservationBoImpl implements ReservationBo {
     }
 
     @Override
-    public boolean updateReservation(Reservation reservation) {
-        return reservationDao.update(reservation);
+    public String updateReservation(Reservation reservation) {
+
+        String reservationStatus = reservationDao.getReservationStatus(reservation.getReservationId());
+
+        if (reservationStatus.equals("paid")){
+            return "paid";
+        } else {
+            Boolean isUpadated = reservationDao.update(reservation);
+            if (isUpadated) {
+                return "Reservation updated!!!";
+            }
+        }
+
+        return null;
+
     }
 
     @Override
@@ -33,8 +46,21 @@ public class ReservationBoImpl implements ReservationBo {
     }
 
     @Override
-    public boolean deleteReservation(Integer reservationNo) {
-        return reservationDao.delete(reservationNo);
+    public String deleteReservation(Integer reservationNo) {
+
+        String reservationStatus = reservationDao.getReservationStatus(reservationNo);
+
+        if (reservationStatus.equals("paid")){
+            return "paid";
+        } else {
+            Boolean isDeleted = reservationDao.delete(reservationNo);
+            if (isDeleted) {
+                return "Reservation deleted!!!";
+            }
+        }
+
+        return null;
+
     }
 
     @Override

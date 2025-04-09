@@ -11,4 +11,6 @@ public interface ReservationDao extends CrudRepository<Reservation, Integer> {
     void makeRoomOccupied(Integer roomNo);
 
     Double getRoomPrice(Integer roomNo);
+
+    String getReservationStatus(Integer reservationNo);
 }

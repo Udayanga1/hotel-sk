@@ -14,9 +14,21 @@ public class BillingBoImpl implements BillingBo {
     BillingDao billingDao = DaoFactory.getInstance().getDaoType(DaoType.BILL);
 
     @Override
-    public boolean makePayment(Payment payment) {
-        System.out.println("payment received to BoImpl: " + payment);
-        return billingDao.save(payment);
+    public String makePayment(Payment payment) {
+
+        String reservationStatus = billingDao.getReservationStatus(payment.getReservationNo());
+
+        if (reservationStatus.equals("paid")){
+            return "already paid";
+        } else {
+            Boolean isPaymentMade = billingDao.save(payment);
+            if (isPaymentMade) {
+                billingDao.updateReservationStatus(payment.getReservationNo(), "paid");
+                return "success";
+            }
+        }
+
+        return null;
     }
 
     @Override
