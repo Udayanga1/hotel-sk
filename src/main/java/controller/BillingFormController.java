@@ -54,17 +54,18 @@ public class BillingFormController {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
-        if (txtDiscount.getText().length()==0){
+        if (txtDiscount.getText().isEmpty()){
             txtDiscount.setText("0");
         }
 
-        if (txtInvoiceNo.getText().length()>0){
+        if (!txtInvoiceNo.getText().isEmpty()){
             new Alert(Alert.AlertType.ERROR, "Please clear the fields before making a new payment").show();
         } else {
             String isPaymentMade = billingBo.makePayment(
                     new Payment(
                             null,
                             Integer.parseInt(txtReservationId.getText()),
+                            cmbPmtMethod.getValue().toString(),
                             txtPayDate.getValue(),
                             Double.parseDouble(txtTotalDue.getText()),
                             Double.parseDouble(txtDiscount.getText()),
@@ -89,23 +90,48 @@ public class BillingFormController {
 
     @FXML
     void btnClearOnAction(ActionEvent event) {
-
+        clearInputFields();
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        if (!txtInvoiceNo.getText().isEmpty()){
+            Payment payment = new Payment();
+            payment.setReservationNo(Integer.parseInt(txtReservationId.getText()));
+            payment.setId(Integer.parseInt(txtInvoiceNo.getText()));
+            boolean isPaymentDeleted = billingBo.deletePayment(payment);
 
+            if (isPaymentDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment Deleted!!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Payment Not Deleted!!").show();
+
+            }
+        }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        if (!txtReservationId.getText().isEmpty()){
+            Payment payment = billingBo.searchPayment(Integer.parseInt(txtReservationId.getText()));
 
+            if (payment!=null) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment Found!!").show();
+                System.out.println("BillingFormController:  " + payment);
+                txtInvoiceNo.setText(String.valueOf(payment.getId()));
+                cmbPmtMethod.setValue(payment.getType());
+                txtPayDate.setValue(payment.getPayDate());
+                txtDiscount.setText(String.valueOf(payment.getDiscount()));
+                txtTaxes.setText(String.valueOf(payment.getTax()));
+                txtTotalDue.setText(String.valueOf(payment.getTotalDue()));
+
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Payment Not Found!!").show();
+                clearInputFields();
+            }
+        }
     }
 
-    @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-
-    }
 
     @FXML
     public void initialize() {
@@ -115,8 +141,6 @@ public class BillingFormController {
 
                 Integer reservationNo = Integer.parseInt(txtReservationId.getText());
                 Payment payment = billingBo.getDetails(reservationNo);
-                System.out.println("payment received to controller: " + payment);
-
 
                 if (payment!=null){
                     Double totalPerReservation = payment.getTotalDue();
@@ -150,6 +174,22 @@ public class BillingFormController {
         });
 
 //        loadTable();
+    }
+
+    private void clearInputFields(){
+//        txtReservationId.setText("");
+//        txtCusID.setText("");
+//        txtCusName.setText("");
+//        txtRoomNo.setText("");
+//        txtCheckInDate.setValue(null);
+//        txtCheckOutDate.setValue(null);
+        txtInvoiceNo.setText("");
+        txtReservationId.setText("");
+        cmbPmtMethod.setValue(null);
+        txtPayDate.setValue(null);
+        txtDiscount.setText("");
+        txtTaxes.setText("");
+        txtTotalDue.setText("");
     }
 
 }

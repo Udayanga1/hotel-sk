@@ -37,8 +37,10 @@ public class BillingBoImpl implements BillingBo {
     }
 
     @Override
-    public Payment searchPayment(Payment payment) {
-        return null;
+    public Payment searchPayment(Integer reservationId) {
+        Payment payment = new Payment();
+        payment.setReservationNo(reservationId);
+        return billingDao.search(payment);
     }
 
     @Override
@@ -48,7 +50,11 @@ public class BillingBoImpl implements BillingBo {
 
     @Override
     public boolean deletePayment(Payment payment) {
-        return false;
+        boolean isPaymentDeleted = billingDao.delete(payment.getId());
+        if (isPaymentDeleted) {
+            billingDao.updateReservationStatus(payment.getReservationNo(), "unpaid");
+        }
+        return isPaymentDeleted;
     }
 
     @Override
@@ -61,6 +67,7 @@ public class BillingBoImpl implements BillingBo {
             return new Payment(
                     null,
                     reservationNo,
+                    null,
                     null,
                     (daysBetween+1)*roomPricePerDay,
                     null,

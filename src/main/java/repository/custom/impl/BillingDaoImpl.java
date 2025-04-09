@@ -42,12 +42,49 @@ public class BillingDaoImpl implements BillingDao {
 
     @Override
     public Payment search(Payment entity) {
-        return null;
+        String SQL = "SELECT * FROM payment WHERE reservation_no = ?";
+
+        Payment payment = null;
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement psTm = connection.prepareStatement(SQL)) {
+
+            psTm.setInt(1, entity.getReservationNo());
+
+            ResultSet rs = psTm.executeQuery();
+
+            if (rs.next()) {
+                payment = new Payment(
+                        rs.getInt("id"),
+                        rs.getInt("reservation_no"),
+                        rs.getString("type"),
+                        rs.getDate("pay_date").toLocalDate(),
+                        rs.getDouble("total_due"),
+                        rs.getDouble("discount"),
+                        rs.getDouble("tax")
+                );
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error searching for payment: ", e);
+        }
+        return payment;
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public boolean delete(Integer invoiceNo) {
+        String SQL = "DELETE FROM payment WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement psTm = connection.prepareStatement(SQL);
+            psTm.setObject(1,invoiceNo);
+            return psTm.executeUpdate()>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

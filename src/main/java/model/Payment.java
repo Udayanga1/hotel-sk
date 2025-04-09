@@ -12,6 +12,7 @@ import java.time.LocalDate;
 public class Payment {
     private Integer id;
     private Integer reservationNo;
+    private String type;
     private LocalDate payDate;
     private Double totalDue;
     private Double discount;

@@ -8,7 +8,7 @@ import java.util.List;
 public interface BillingBo extends SuperService {
     String makePayment(Payment payment);
     boolean updatePayment(Payment payment);
-    Payment searchPayment(Payment payment);
+    Payment searchPayment(Integer reservationId);
     List<Payment> getAll();
     boolean deletePayment(Payment payment);
 
