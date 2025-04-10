@@ -45,7 +45,7 @@ public class BillingBoImpl implements BillingBo {
 
     @Override
     public List<Payment> getAll() {
-        return List.of();
+        return billingDao.getAll();
     }
 
     @Override

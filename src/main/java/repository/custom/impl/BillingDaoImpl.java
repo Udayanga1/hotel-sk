@@ -3,20 +3,20 @@ package repository.custom.impl;
 import db.DBConnection;
 import model.Payment;
 import model.Reservation;
-import model.Room;
 import repository.custom.BillingDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillingDaoImpl implements BillingDao {
     @Override
     public boolean save(Payment entity) {
 
-        String SQL = "INSERT INTO payment (reservation_no, pay_date, total_due, discount, tax) VALUES (?,?,?,?,?)";
+        String SQL = "INSERT INTO payment (reservation_no, pay_date, total_due, discount, tax, type) VALUES (?,?,?,?,?,?)";
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement psTm = connection.prepareStatement(SQL);
@@ -26,6 +26,7 @@ public class BillingDaoImpl implements BillingDao {
             psTm.setObject(3,entity.getTotalDue());
             psTm.setObject(4,entity.getDiscount());
             psTm.setObject(5,entity.getTax());
+            psTm.setObject(6,entity.getType());
             int rowsAffected = psTm.executeUpdate();
 
             return rowsAffected > 0;
@@ -89,7 +90,31 @@ public class BillingDaoImpl implements BillingDao {
 
     @Override
     public List<Payment> getAll() {
-        return List.of();
+        String SQL = "SELECT * FROM payment";
+        List<Payment> paymentList = new ArrayList<>();
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement psTm = connection.prepareStatement(SQL);
+             ResultSet resultSet = psTm.executeQuery()) {
+
+            while (resultSet.next()) {
+                Payment payment = new Payment(
+                        resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getString(3),
+                        resultSet.getDate(4).toLocalDate(),
+                        resultSet.getDouble(5),
+                        resultSet.getDouble(6),
+                        resultSet.getDouble(7)
+                );
+                paymentList.add(payment);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving payments: ", e);
+        }
+
+        return paymentList;
     }
 
     @Override
@@ -111,7 +136,8 @@ public class BillingDaoImpl implements BillingDao {
                         rs.getInt("cusId"),
                         rs.getInt("roomNo"),
                         rs.getDate("checkInDate").toLocalDate(),
-                        rs.getDate("checkOutDate").toLocalDate()
+                        rs.getDate("checkOutDate").toLocalDate(),
+                        rs.getString("status")
                 );
             }
 

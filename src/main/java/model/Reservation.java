@@ -15,4 +15,5 @@ public class Reservation {
     private Integer roomNo;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
+    private String status;
 }

@@ -142,7 +142,6 @@ public class RoomFormController {
             roomArrayList.add(room);
         });
 
-
         roomArrayList.forEach(room -> {
             roomObservableList.add(room);
         });

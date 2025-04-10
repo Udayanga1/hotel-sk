@@ -33,6 +33,9 @@ public class ReservationFormController {
     private TableColumn colRoomNo;
 
     @FXML
+    private TableColumn colStatus;
+
+    @FXML
     private TableView tblReservation;
 
     @FXML
@@ -78,7 +81,8 @@ public class ReservationFormController {
                         Integer.parseInt(txtCusID.getText()),
                         Integer.parseInt(txtRoomNo.getText()),
                         txtCheckInDate.getValue(),
-                        txtCheckOutDate.getValue()
+                        txtCheckOutDate.getValue(),
+                        null
                 )
             );
             if (isReservationAdd) {
@@ -125,7 +129,8 @@ public class ReservationFormController {
                 Integer.parseInt(txtCusID.getText()),
                 Integer.parseInt(txtRoomNo.getText()),
                 txtCheckInDate.getValue(),
-                txtCheckOutDate.getValue()
+                txtCheckOutDate.getValue(),
+                null
         );
 
         Reservation reservation = reservationBo.searchReservation(reservationSearching);
@@ -153,7 +158,8 @@ public class ReservationFormController {
                         Integer.parseInt(txtCusID.getText()),
                         Integer.parseInt(txtRoomNo.getText()),
                         txtCheckInDate.getValue(),
-                        txtCheckOutDate.getValue()
+                        txtCheckOutDate.getValue(),
+                        null
                 )
         );
         if (reservationStatus != null) {
@@ -204,6 +210,7 @@ public class ReservationFormController {
         colRoomNo.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
         colCheckIn.setCellValueFactory(new PropertyValueFactory<>("checkInDate"));
         colCheckOut.setCellValueFactory(new PropertyValueFactory<>("checkOutDate"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         ArrayList<Reservation> reservationArrayList = new ArrayList<>();
         ObservableList<Reservation> reservationObservableList = FXCollections.observableArrayList();
@@ -226,8 +233,4 @@ public class ReservationFormController {
 
         txtTotalAmount.setText("Rs " + totalAmount);
     }
-
-
-
-
 }

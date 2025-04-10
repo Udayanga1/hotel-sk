@@ -203,7 +203,8 @@ public class ReservationDaoImpl implements ReservationDao {
                         rs.getInt("cusId"),
                         rs.getInt("roomNo"),
                         rs.getDate("checkInDate").toLocalDate(),
-                        rs.getDate("checkOutDate").toLocalDate()
+                        rs.getDate("checkOutDate").toLocalDate(),
+                        "unpaid"
                 );
             }
             rs.close();
@@ -243,7 +244,8 @@ public class ReservationDaoImpl implements ReservationDao {
                         resultSet.getInt(2),
                         resultSet.getInt(3),
                         resultSet.getDate(4).toLocalDate(),
-                        resultSet.getDate(5).toLocalDate()
+                        resultSet.getDate(5).toLocalDate(),
+                        resultSet.getString(6)
                 );
                 reservationList.add(reservation);
             }

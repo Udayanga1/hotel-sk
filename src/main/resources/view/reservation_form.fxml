@@ -49,11 +49,12 @@
         </Button>
         <TableView fx:id="tblReservation" layoutX="51.0" layoutY="146.0" prefHeight="284.0" prefWidth="494.0" stylesheets="@../css/style.css">
             <columns>
-                <TableColumn fx:id="colResId" prefWidth="98.6" text="Res Id" />
-                <TableColumn fx:id="colCusId" prefWidth="98.6" text="Customer Id" />
-                <TableColumn fx:id="colRoomNo" prefWidth="98.6" text="Room No" />
-                <TableColumn fx:id="colCheckIn" prefWidth="98.6" text="Check-in" />
-                <TableColumn fx:id="colCheckOut" prefWidth="98.6" text="Check-out" />
+                <TableColumn fx:id="colResId" prefWidth="82.2" text="Res Id" />
+                <TableColumn fx:id="colCusId" prefWidth="82.2" text="Customer Id" />
+                <TableColumn fx:id="colRoomNo" prefWidth="82.2" text="Room No" />
+                <TableColumn fx:id="colCheckIn" prefWidth="82.2" text="Check-in" />
+                <TableColumn fx:id="colCheckOut" prefWidth="82.2" text="Check-out" />
+                <TableColumn fx:id="colStatus" prefWidth="82" text="Status" />
             </columns>
         </TableView>
         <Button layoutX="266.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnClearOnAction" style="-fx-background-color: #D4A406; -fx-background-radius: 0;" text="Clear" textFill="WHITE">

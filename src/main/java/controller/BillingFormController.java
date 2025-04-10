@@ -1,9 +1,11 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import model.Customer;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Payment;
 import service.BoFactory;
 import service.custom.BillingBo;
@@ -15,19 +17,19 @@ public class BillingFormController {
     private ComboBox cmbPmtMethod;
 
     @FXML
-    private TableColumn colCheckIn;
+    private TableColumn colDiscount;
 
     @FXML
-    private TableColumn colCheckOut;
+    private TableColumn colInvNo;
 
     @FXML
-    private TableColumn colCusId;
+    private TableColumn colPayDate;
 
     @FXML
     private TableColumn colResId;
 
     @FXML
-    private TableColumn colRoomNo;
+    private TableColumn colTotalDue;
 
     @FXML
     private TableView tblBilling;
@@ -173,16 +175,10 @@ public class BillingFormController {
 
         });
 
-//        loadTable();
+        loadTable();
     }
 
     private void clearInputFields(){
-//        txtReservationId.setText("");
-//        txtCusID.setText("");
-//        txtCusName.setText("");
-//        txtRoomNo.setText("");
-//        txtCheckInDate.setValue(null);
-//        txtCheckOutDate.setValue(null);
         txtInvoiceNo.setText("");
         txtReservationId.setText("");
         cmbPmtMethod.setValue(null);
@@ -190,6 +186,23 @@ public class BillingFormController {
         txtDiscount.setText("");
         txtTaxes.setText("");
         txtTotalDue.setText("");
+    }
+
+    private void loadTable(){
+        colInvNo.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colResId.setCellValueFactory(new PropertyValueFactory<>("reservationNo"));
+        colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
+        colTotalDue.setCellValueFactory(new PropertyValueFactory<>("totalDue"));
+        colPayDate.setCellValueFactory(new PropertyValueFactory<>("payDate"));
+
+        ObservableList<Payment> paymentObservableList = FXCollections.observableArrayList();
+
+        billingBo.getAll().forEach(payment -> {
+            paymentObservableList.add(payment);
+        });
+
+        tblBilling.setItems(paymentObservableList);
+
     }
 
 }
