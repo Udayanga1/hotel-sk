@@ -25,7 +25,7 @@ public class UserBoImpl implements UserBo {
 
     @Override
     public User searchUser(User user) {
-        return null;
+        return userDao.search(user);
     }
 
     @Override

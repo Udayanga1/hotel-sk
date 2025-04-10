@@ -119,7 +119,6 @@ public class BillingFormController {
 
             if (payment!=null) {
                 new Alert(Alert.AlertType.INFORMATION, "Payment Found!!").show();
-                System.out.println("BillingFormController:  " + payment);
                 txtInvoiceNo.setText(String.valueOf(payment.getId()));
                 cmbPmtMethod.setValue(payment.getType());
                 txtPayDate.setValue(payment.getPayDate());

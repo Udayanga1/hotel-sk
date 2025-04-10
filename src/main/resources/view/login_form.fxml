@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </TextField>
-                <Button layoutX="107.0" layoutY="305.0" mnemonicParsing="false" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="98.0" style="-fx-background-color: #C56B82;" text="LOGIN" textFill="#ececec" />
+                <Button fx:id="btnLogin" layoutX="107.0" layoutY="305.0" mnemonicParsing="false" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="98.0" style="-fx-background-color: #C56B82;" text="LOGIN" textFill="#ececec" />
                 <PasswordField fx:id="txtPassword" layoutX="77.0" layoutY="200.0" prefHeight="50.0" prefWidth="158.0" promptText="Password" style="-fx-background-color: #C8C8C0;">
                     <font>
                         <Font name="System Bold" size="16.0" />

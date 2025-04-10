@@ -29,7 +29,7 @@
          </children></AnchorPane>
       <Button fx:id="btnLoadRoomMgt" layoutX="23.0" layoutY="87.0" mnemonicParsing="false" onAction="#btnRoomMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Room Management" textFill="#ececec" />
       <Button fx:id="btnLoadReservationMgt" layoutX="23.0" layoutY="165.0" mnemonicParsing="false" onAction="#btnReservationMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Reservation Management" textFill="#ececec" />
-      <Button fx:id="txtLogout" layoutX="23.0" layoutY="426.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #ececec; -fx-font-weight: bold; -fx-text-fill: #C56B82; -fx-border-color: #C56B82; -fx-border-radius: 5;" text="Logout" textFill="#ececec" />
+      <Button fx:id="txtLogout" layoutX="23.0" layoutY="426.0" mnemonicParsing="false" onAction="#btnLogoutOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #ececec; -fx-font-weight: bold; -fx-text-fill: #C56B82; -fx-border-color: #C56B82; -fx-border-radius: 5;" text="Logout" textFill="#ececec" />
       <Button fx:id="btnLoadRCustomerMgt" layoutX="23.0" layoutY="243.0" mnemonicParsing="false" onAction="#btnCustomerMgtOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Customer Management" textFill="#ececec" />
       <Button fx:id="btnLoadBillingt" layoutX="23.0" layoutY="318.0" mnemonicParsing="false" onAction="#btnBillingOnAction" prefHeight="37.0" prefWidth="174.0" style="-fx-background-color: #C56B82; -fx-font-weight: bold;" text="Billing" textFill="#ececec" />
     </children>
