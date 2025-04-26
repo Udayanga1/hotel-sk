@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement psTm = connection.prepareStatement(SQL);
             psTm.setObject(1,entity.getUserName());
             psTm.setObject(2,entity.getEmail());
-            psTm.setObject(3,entity.getEmail());
+            psTm.setObject(3,entity.getPassword());
             return psTm.executeUpdate()>0;
 
         } catch (SQLException e) {
